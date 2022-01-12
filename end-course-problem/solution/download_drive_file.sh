@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# First parameter is the ID, second parameter is the filename
+FILEID=$1
+FILENAME=$2
+
+# This script downloads the drive file with the given ID and saves it with the g                                                                                                             iven name
+
+COOKIE_FILE=$(mktemp cookiesXXXX.txt)
+
+# First get the confirmation prompt because the file is too big
+CONFIRM=$(wget --quiet --save-cookies ${COOKIE_FILE} --keep-session-cookies "htt                                                                                                             ps://docs.google.com/uc?export=download&id=${FILEID}" -O- | sed -rn 's/.*confirm                                                                                                             =([0-9A-Za-z_]+).*/\1\n/p')
+
+# Then download the file using the confirmation prompt
+wget --load-cookies ${COOKIE_FILE} "https://docs.google.com/uc?export=download&c                                                                                                             onfirm=${CONFIRM}&id=${FILEID}" -O ${FILENAME}
+
+# Finally, delete the cookie file
+rm ${COOKIE_FILE}
+
+
+#############################################################################
+# to run
+# sudo chmod +x ~/download_drive_file.sh
+# ./download_drive_file.sh 1LePo57dJcgzoK4uiI_48S01Etck7w_5f supplier-data.tar.gz
+# tar xf ~/supplier-data.tar.gz

@@ -1,0 +1,62 @@
+Basics rsync command
+rsync(remote sync) is a utility for efficiently transferring and synchronizing files between a computer and an external hard drive and across networked computers by comparing the modification time and size of files. One of the important features of rsync is that it works on the delta transfer algorithm, which means it'll only sync or copy the changes from the source to the destination instead of copying the whole file. This ultimately reduces the amount of data sent over the network.
+
+The basic syntax of the rsync command is below:
+
+rsync [Options] [Source-Files-Dir] [Destination]
+Some of the commonly used options in rsync command are listed below:
+
+Options
+
+Uses
+
+-v
+
+Verbose output
+
+-q
+
+Suppress message output
+
+-a
+
+Archive files and directory while synchronizing
+
+-r
+
+Sync files and directories recursively
+
+-b
+
+Take the backup during synchronization
+
+-z
+
+Compress file data during the transfer
+
+Example:
+
+Copy or sync files locally:
+
+rsync -zvh [Source-Files-Dir] [Destination]
+Copy or sync directory locally:
+
+rsync -zavh [Source-Files-Dir] [Destination]
+Copy files and directories recursively locally:
+
+rsync -zrvh [Source-Files-Dir] [Destination]
+To learn more about rsync basic command, check out this link.
+###############################################################################
+Example:
+In order to use the rsync command in Python, use the subprocess module by calling call methods and passing a list as an argument. You can do this by opening the python3 shell:
+
+python3
+Now, import the subprocess module and call the call method and pass the arguments:
+
+import subprocess
+src = "<source-path>" # replace <source-path> with the source directory
+dest = "<destination-path>" # replace <destination-path> with the destination directory
+subprocess.call(["rsync", "-arq", src, dest])
+By using the above script, you can sync your data recursively from the source path to the destination path.
+
+Exit from the Python shell using exit()
